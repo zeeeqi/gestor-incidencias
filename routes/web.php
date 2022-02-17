@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\FormsController;
+use App\Http\Controllers\IncidenciaController;
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Incidencia;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,12 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware(['auth']);
+Route::get('/', [IncidenciaController::class,'index'])->middleware(['auth'])->name('incidencia.index');
+Route::get('/delete/{id}',[IncidenciaController::class,'delete'])->name('incidencia.delete');
+Route::get('/reparar/{id}',[IncidenciaController::class,'reparar'])->name('incidencia.reparar');
+Route::post('/store',[IncidenciaController::class,'store'])->name('incidencia.store');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/addform',[FormsController::class,'add'])->name('form.add');
 
-require __DIR__.'/auth.php';
+
+
+require __DIR__ . '/auth.php';
