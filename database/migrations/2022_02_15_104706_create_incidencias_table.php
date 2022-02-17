@@ -17,10 +17,14 @@ return new class extends Migration
             $table->id();
             $table->string('titulo');
             $table->text('contenido');
-            $table->foreignId('user_id_creado')->constrained('usuarios');
-            $table->foreignId('user_id_reparado')->constrained('usuarios');
-            $table->string('estado');
+            $table->unsignedBigInteger('user_id_creado');
+            $table->unsignedBigInteger('user_id_reparado')->nullable();
+            $table->string('estado')->default('pendiente');
             $table->timestamps();
+        });
+
+        Schema::table('incidencias',function(Blueprint $table){
+            $table->foreign('user_id_creado')->references('id')->on('users');
         });
     }
 
