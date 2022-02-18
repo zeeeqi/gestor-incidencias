@@ -58,7 +58,7 @@
                                         <a href="{{ route('form.update', $incidencia) }}"
                                             class="bg-indigo-500 mx-2 py-2 px-4 text-white hover:bg-indigo-400 rounded">Modificar</a>
                                     @endif
-                                    @if (true)
+                                    @if (Auth::user()->isAdmin())
                                         <a href="{{ route('incidencia.reparar', $incidencia) }}"
                                             class="bg-indigo-500 mx-2 py-2 px-4 text-white hover:bg-indigo-400 rounded">Reparar</a>
                                     @endif
