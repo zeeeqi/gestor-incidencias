@@ -17,8 +17,8 @@
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
-                                <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
-                                                        this.closest('form').submit();">
+                                <x-responsive-nav-link :href="route('logout')"
+                                    onclick="event.preventDefault();   this.closest('form').submit();">
                                     {{ __('Desconectar') }}
                                 </x-responsive-nav-link>
                             </form>
@@ -51,11 +51,19 @@
                             <p class="px-5">Estado: <strong>{{ ucfirst($incidencia->estado) }}</strong></p>
                             <p class="px-5 py-3">{{ $incidencia->contenido }}</p>
                             <p class="px-5 py-3 mb-5">
-                                <a href="{{ route('incidencia.delete', $incidencia->id) }}"
-                                    class="bg-indigo-500 py-2 px-4 text-white hover:bg-indigo-400 rounded">Eliminar</a>
-                                @if (Auth::user()->isAdmin())
-                                    <a href="{{ route('incidencia.reparar', $incidencia->id) }}"
-                                        class="bg-indigo-500 mx-5 py-2 px-4 text-white hover:bg-indigo-400 rounded">Reparar</a>
+                                @if ($incidencia->estado == 'pendiente')
+                                    @if ($incidencia->user_id_creado == Auth::user()->id || Auth::user()->rol == 'admin')
+                                        <a href="{{ route('incidencia.delete', $incidencia) }}"
+                                            class="bg-indigo-500 mx-2 py-2 px-4 text-white hover:bg-indigo-400 rounded">Eliminar</a>
+                                        <a href="{{ route('form.update', $incidencia) }}"
+                                            class="bg-indigo-500 mx-2 py-2 px-4 text-white hover:bg-indigo-400 rounded">Modificar</a>
+                                    @endif
+                                    @if (true)
+                                        <a href="{{ route('incidencia.reparar', $incidencia) }}"
+                                            class="bg-indigo-500 mx-2 py-2 px-4 text-white hover:bg-indigo-400 rounded">Reparar</a>
+                                    @endif
+                                @else
+                                    <p class="px-5 py-3">Reparada por: <strong> {{ $incidencia->reparado_name }}</strong>                                    </p>
                                 @endif
                             </p>
                         </div>
@@ -65,7 +73,7 @@
         </div>
         {{ $incidencias->links() }}
         <div class="flex w-2/4">
-            <a href="{{ route('form.add', $incidencia->id) }}"
+            <a href="{{ route('form.add') }}"
                 class="bg-indigo-500 self-start mt-5 py-2 px-4 text-white hover:bg-indigo-400 rounded">Añadir incidencia</a>
         </div>
     </div>

@@ -15,12 +15,15 @@ use App\Models\Incidencia;
 |
 */
 
-Route::get('/', [IncidenciaController::class,'index'])->middleware(['auth'])->name('incidencia.index');
-Route::get('/delete/{id}',[IncidenciaController::class,'delete'])->name('incidencia.delete');
-Route::get('/reparar/{id}',[IncidenciaController::class,'reparar'])->name('incidencia.reparar');
-Route::post('/store',[IncidenciaController::class,'store'])->name('incidencia.store');
+Route::get('/', [IncidenciaController::class, 'index'])->middleware(['auth'])->name('incidencia.index');
+Route::get('/delete/{incidencia}', [IncidenciaController::class, 'delete'])->middleware(['auth'])->name('incidencia.delete');
+Route::get('/reparar/{incidencia}', [IncidenciaController::class, 'reparar'])->middleware(['auth'])->name('incidencia.reparar');
+Route::get('/modificar/{incidencia}', [IncidenciaController::class, 'modificar'])->middleware(['auth'])->name('incidencia.modificar');
+Route::post('/store', [IncidenciaController::class, 'store'])->middleware(['auth'])->name('incidencia.store');
+Route::put('/update/{incidencia}', [IncidenciaController::class, 'update'])->middleware(['auth'])->name('incidencia.update');
 
-Route::get('/addform',[FormsController::class,'add'])->name('form.add');
+Route::get('/addform', [FormsController::class, 'add'])->middleware(['auth'])->name('form.add');
+Route::get('/updateForm/{incidencia}', [FormsController::class, 'update'])->middleware(['auth'])->name('form.update');
 
 
 
