@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        // Modificado para que al crear una cuenta desde el admin, puedas elegir o admin o usuario
+        // comprobado que en la creacion de usuarios normales no influye
+        'rol'
     ];
 
     /**
